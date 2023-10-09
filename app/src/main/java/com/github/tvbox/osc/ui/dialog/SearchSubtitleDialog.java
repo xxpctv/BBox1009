@@ -2,8 +2,12 @@ package com.github.tvbox.osc.ui.dialog;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -59,7 +63,17 @@ public class SearchSubtitleDialog extends BaseDialog {
         initView(context);
         initViewModel();
     }
+@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(getWindow().getAttributes());
+        lp.gravity = Gravity.TOP | Gravity.START | Gravity.END;
+        lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
+        getWindow().setAttributes(lp);
+        getWindow().setWindowAnimations(R.style.DialogFadeAnimation); // Set the animation style
+    }
     protected void initView(Context context) {
         loadingBar = findViewById(R.id.loadingBar);
         mGridView = findViewById(R.id.mGridView);
